@@ -1,6 +1,6 @@
 "use strict";
 /* -------------------------------------------------------
-    EXPRESSJS - TODO Project with Sequelize
+    EXPRESSJS - BOOKS Project with Sequelize
 ------------------------------------------------------- */
 // CONTROLLERS:
 
