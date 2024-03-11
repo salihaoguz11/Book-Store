@@ -18,7 +18,7 @@ const Books = sequelize.define("books", {
 });
 
 // Syncronization:
-sequelize.sync(); // CREATE TABLE
+// sequelize.sync(); // CREATE TABLE
 
 // Connect to db:
 
