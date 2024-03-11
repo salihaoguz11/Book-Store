@@ -13,12 +13,13 @@ const Books = sequelize.define("books", {
   author: DataTypes.STRING,
   ISBN: DataTypes.STRING,
   genre: DataTypes.STRING,
-  publicationYear: DataTypes.INTEGER,
+  publicationYear: DataTypes.TEXT,
   image: DataTypes.TEXT,
 });
 
 // Syncronization:
 // sequelize.sync(); // CREATE TABLE
+// sequelize.sync({ alter: true });
 
 // Connect to db:
 

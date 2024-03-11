@@ -16,7 +16,8 @@ app.use(express.json());
 // Catch async-errors:
 require("express-async-errors");
 /* ------------------------------------------------------- */
-app.use(require("./app/models/books.js"));
+app.use(require("./app/routes/books"));
+
 /* ------------------------------------------------------- */
 // ErrorHandler:
 app.use(require("./app/errorHandler"));
