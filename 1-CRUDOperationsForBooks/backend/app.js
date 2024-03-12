@@ -4,7 +4,11 @@
 ------------------------------------------------------- */
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
+
+// Use cors middleware
+app.use(cors());
 
 require("dotenv").config();
 const PORT = process.env.PORT || 8000;
