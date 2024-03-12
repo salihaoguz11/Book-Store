@@ -8,8 +8,9 @@ const useBookCalls = () => {
 
   const getBooks = async () => {
     try {
-      const response = await axios.get(`/baseURL`);
-      return response.data;
+      const response = await axios.get(baseURL);
+      console.log(response);
+      return response?.data;
     } catch (error) {
       console.error("Error fetching books:", error);
       throw error;
@@ -18,7 +19,7 @@ const useBookCalls = () => {
 
   const createBook = async (formData) => {
     try {
-      const response = await axios.post(`/baseURL,formData`);
+      const response = await axios.post(baseURL, formData);
       return response.data;
     } catch (error) {
       console.error("Error creating book:", error);
