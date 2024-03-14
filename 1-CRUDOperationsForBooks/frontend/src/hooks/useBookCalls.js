@@ -10,6 +10,7 @@ const useBookCalls = () => {
     try {
       const response = await axios.get(baseURL);
       console.log(response);
+
       return response?.data;
     } catch (error) {
       console.error("Error fetching books:", error);

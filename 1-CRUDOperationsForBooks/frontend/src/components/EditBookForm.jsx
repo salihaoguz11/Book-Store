@@ -1,36 +1,32 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import useBookCalls from "../hooks/useBookCalls";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 
-const BookForm = () => {
+const EditBookForm = () => {
   const navigate = useNavigate();
-  const { createBooks } = useBookCalls();
+  const { id } = useParams();
+  const location = useLocation();
+  const { formData } = location.state;
 
-  const [formData, setFormData] = useState({
-    title: "",
-    author: "",
-    ISBN: "",
-    genre: "",
-    publicationYear: "",
-    image: "",
-  });
+  const [editFormData, setEditFormData] = useState(formData);
+
+  const baseURL = `http://localhost:8000/books/${id}`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setEditFormData({ ...editFormData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000", formData);
+      const response = await axios.put(baseURL, editFormData);
       console.log(response.data);
       navigate("/");
     } catch (err) {
-      console.error("Error creating books:", err);
+      console.log(err);
     }
   };
 
@@ -52,12 +48,12 @@ const BookForm = () => {
         align="left"
         sx={{ fontWeight: 900, marginTop: "1.5rem" }}
       >
-        ADD A BOOK
+        Edit Book
       </Typography>
       <TextField
         label="Title"
         name="title"
-        value={formData.title}
+        value={editFormData.title}
         onChange={handleChange}
         type="text"
         variant="outlined"
@@ -67,7 +63,7 @@ const BookForm = () => {
       <TextField
         label="Author"
         name="author"
-        value={formData.author}
+        value={editFormData.author}
         onChange={handleChange}
         type="text"
         variant="outlined"
@@ -77,7 +73,7 @@ const BookForm = () => {
       <TextField
         label="Genre"
         name="genre"
-        value={formData.genre}
+        value={editFormData.genre}
         onChange={handleChange}
         type="text"
         variant="outlined"
@@ -87,7 +83,7 @@ const BookForm = () => {
       <TextField
         label="ISBN"
         name="ISBN"
-        value={formData.ISBN}
+        value={editFormData.ISBN}
         onChange={handleChange}
         type="text"
         variant="outlined"
@@ -95,10 +91,10 @@ const BookForm = () => {
       />
       {/* Other TextField components follow */}
       <Button type="submit" variant="contained">
-        ADD A NEW BOOK
+        EDIT BOOK
       </Button>
     </Box>
   );
 };
 
-export default BookForm;
+export default EditBookForm;

@@ -10,6 +10,10 @@ const router = require("express").Router();
 
 router.route("/").get(books.list).post(books.create);
 
-router.route("/:id").get(books.read).put(books.update).delete(books.delete);
+router
+  .route("/books/:id")
+  .get(books.read)
+  .put(books.update)
+  .delete(books.delete);
 
 module.exports = router;
