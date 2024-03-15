@@ -1,17 +1,12 @@
 import { Button } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-import useBookCalls from "../hooks/useBookCalls";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
-import BookForm from "./BookForm";
-import EditBookForm from "./EditBookForm";
 
 const BookList = () => {
   const navigate = useNavigate();
@@ -51,18 +46,19 @@ const BookList = () => {
   //     }
   //   };
 
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-
-  const handleClose = () => setOpen(false);
-
   const handleEdit = (book) => {
     navigate(`/edit/${book.id}`, { state: { formData: book } });
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (rowToDelete) => {
     // Handle delete operation
+    try {
+      await axios.delete(`http://localhost:8000/books/${rowToDelete.id}`);
+      const updatedData = formData.filter((row) => row.id !== rowToDelete.id);
+      setFormData(updatedData);
+    } catch (err) {
+      console.error("Error deleting book:", err);
+    }
   };
   // const getRowId = (row) => row.id;
 
@@ -141,19 +137,17 @@ const BookList = () => {
   ];
 
   return (
-    <div>
-      {/* <Typography variant="h4" color="error" mb={3}>
-          Books
-        </Typography>
-
-        <Button variant="contained" onClick={handleOpen}>
-          Add A New Book
-        </Button> */}
-
+    <Box
+      sx={{
+        marginTop: "5rem",
+        paddingTop: "20px",
+        paddingBottom: "20px",
+      }}
+    >
       <Button
         type="submit"
         variant="contained"
-        sx={{ alignItems: "flex-start" }}
+        sx={{ display: "flex", alignItems: "flex-start" }}
         onClick={() => navigate("/new")}
       >
         ADD A NEW BOOK
@@ -172,7 +166,7 @@ const BookList = () => {
           }}
         />
       </Box>
-    </div>
+    </Box>
   );
 };
 
