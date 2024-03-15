@@ -2,9 +2,6 @@ import "./App.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import BookForm from "./components/BookForm";
 import BookList from "./components/BookList";
-
-import { useState, useEffect } from "react";
-import axios from "axios";
 import EditBookForm from "./components/EditBookForm";
 
 function App() {
