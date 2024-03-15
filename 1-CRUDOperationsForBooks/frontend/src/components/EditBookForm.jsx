@@ -48,6 +48,7 @@ const EditBookForm = () => {
     >
       <Typography
         variant="h5"
+        color="primary"
         align="left"
         sx={{ fontWeight: 900, marginTop: "1.5rem" }}
       >
@@ -93,7 +94,7 @@ const EditBookForm = () => {
         sx={{ width: "30%" }}
       />
       {/* Other TextField components follow */}
-      <Button type="submit" variant="contained">
+      <Button type="submit" variant="contained" color="primary">
         SUBMIT
       </Button>
     </Box>
