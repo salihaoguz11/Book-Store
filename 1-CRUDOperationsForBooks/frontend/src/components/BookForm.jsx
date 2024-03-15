@@ -1,13 +1,11 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useBookCalls from "../hooks/useBookCalls";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 const BookForm = () => {
   const navigate = useNavigate();
-  const { createBooks } = useBookCalls();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -28,9 +26,11 @@ const BookForm = () => {
     try {
       const response = await axios.post("http://localhost:8000", formData);
       console.log(response.data);
+      toastSuccessNotify("Succesfully Added");
       navigate("/");
     } catch (err) {
       console.error("Error creating books:", err);
+      toastErrorNotify("Oops, Something went wrong!");
     }
   };
 
@@ -45,7 +45,7 @@ const BookForm = () => {
       }}
       component="form"
       width="100%"
-      onSubmit={handleSubmit} // Bind handleSubmit to onSubmit event
+      onSubmit={handleSubmit}
     >
       <Typography
         variant="h5"
@@ -93,7 +93,6 @@ const BookForm = () => {
         variant="outlined"
         sx={{ width: "30%" }}
       />
-      {/* Other TextField components follow */}
       <Button type="submit" variant="contained">
         ADD A NEW BOOK
       </Button>

@@ -1,8 +1,9 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 const EditBookForm = () => {
   const navigate = useNavigate();
@@ -25,8 +26,10 @@ const EditBookForm = () => {
       const response = await axios.put(baseURL, editFormData);
       console.log(response.data);
       navigate("/");
+      toastSuccessNotify("Succesfully Updated");
     } catch (err) {
       console.log(err);
+      toastErrorNotify("Oops, Something went wrong!");
     }
   };
 
@@ -41,7 +44,7 @@ const EditBookForm = () => {
       }}
       component="form"
       width="100%"
-      onSubmit={handleSubmit} // Bind handleSubmit to onSubmit event
+      onSubmit={handleSubmit}
     >
       <Typography
         variant="h5"
@@ -91,7 +94,7 @@ const EditBookForm = () => {
       />
       {/* Other TextField components follow */}
       <Button type="submit" variant="contained">
-        EDIT BOOK
+        SUBMIT
       </Button>
     </Box>
   );

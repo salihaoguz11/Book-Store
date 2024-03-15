@@ -1,9 +1,10 @@
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import * as React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
@@ -18,7 +19,6 @@ const BookList = () => {
     publicationYear: "",
     image: "",
   });
-  // const { getBooks } = useBookCalls();
 
   useEffect(() => {
     getBooks();
@@ -35,16 +35,6 @@ const BookList = () => {
       throw error;
     }
   };
-  //   const [books, setBooks] = useState([]);
-
-  //   const fetchBooks = async () => {
-  //     try {
-  //       const fetchedBooks = await getBooks();
-  //       setBooks(fetchedBooks);
-  //     } catch (error) {
-  //       console.error("Error fetching books:", error);
-  //     }
-  //   };
 
   const handleEdit = (book) => {
     navigate(`/edit/${book.id}`, { state: { formData: book } });
@@ -56,11 +46,12 @@ const BookList = () => {
       await axios.delete(`http://localhost:8000/books/${rowToDelete.id}`);
       const updatedData = formData.filter((row) => row.id !== rowToDelete.id);
       setFormData(updatedData);
+      toastSuccessNotify("Succesfully deleted");
     } catch (err) {
       console.error("Error deleting book:", err);
+      toastErrorNotify("Oops, Something went wrong!");
     }
   };
-  // const getRowId = (row) => row.id;
 
   const columns = [
     {
